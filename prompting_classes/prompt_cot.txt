@@ -1,0 +1,6 @@
+Question: The following riddles are part of a competition to test the ability of AI to solve riddles and show reasoning capabilities.
+Each riddle is composed of train examples, each containing an input matrix and an output matrix, connected by a transformation.
+Notice that the same transformation is applied to the input matrix for all examples, and the output matrix is the result of the transformation.
+Your job is to deduct the transformation and apply it to the test matrix.
+Perform the following riddle while explaining it step by step.
+First, explain the logic behind each example while trying to deduct the transformation for all of them, and only then apply the same transformation to the test one.
