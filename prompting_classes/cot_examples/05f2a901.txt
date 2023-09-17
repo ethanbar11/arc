@@ -1,3 +1,4 @@
+
 By looking at the first training example I'm inferring that:
 1. All the {0} values represent empty cells.
 2. All the {2} values represent cells of the first object.
@@ -48,3 +49,4 @@ Thus, for the test input:
 
 And thus the output matrix is:
 {out}
+<|im_end>

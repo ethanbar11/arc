@@ -15,4 +15,8 @@ prompt_config:
   matrix_delimiter: []
   col_delimiter: '' # If nothing there this means space
   using_numbers: True
+  cot_prompt_location: ./prompting_classes/cot_examples
+  cot_tasks:
+    - 05f2a901
 output_path: ./experiments_results/zero_shot_code_llama_13b_8_bit_quantization.csv
+prompt_creator: CoTPromptConvertor

@@ -1,0 +1,18 @@
+arcathon_pipeline:
+  model_id: OpenAssistant/codellama-13b-oasst-sft-v10 #meta-llama/Llama-2-13b-chat-hf
+  device: cuda:2
+  max_new_tokens: 4000
+  min_new_tokens: 1
+  temperature: 0.3
+  top_p: 0.9
+  tries_amount: 3
+
+prompt_config:
+  prompt_start_location: prompting_classes/prompt_zero_shot_llama_coder_start.txt
+  prompt_test_location: prompting_classes/prompt_zero_shot_llama_code_test.txt
+  prompt_end_location: prompting_classes/prompt_zero_shot_llama_coder_end.txt
+  row_delimiter: []  # If nothing there this means space
+  matrix_delimiter: []
+  col_delimiter: '' # If nothing there this means space
+  using_numbers: True
+output_path: ./experiments_results/zero_shot_code_llama_13b_8_bit_quantization.csv
