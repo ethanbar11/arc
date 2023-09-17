@@ -5,22 +5,14 @@ from datasets.small_arc_dataset import SmallArcDirectGridDataset
 import yaml
 import os
 from pipelines.arcathon_pipeline import ArcathonPipeline
-from prompting_classes.zero_shot_prompt_convertor import ZeroShotPromptConvertor
-
-CONFIG_LOCATION = './config/config.yaml'
-
-
-def get_config():
-    with open(CONFIG_LOCATION) as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
-    return config
+from config import config
+from prompting_classes import prompt_cls
 
 
-def save_to_csv(csv_path, data, success, matrix, complete_out):
+def save_to_csv(csv_path, data, success, complete_out):
     experiment_name = csv_path.split('/')[-1].split('.')[0]
     data = data.copy()
     data[f'{experiment_name} success'] = success
-    data[f'{experiment_name} out matrix'] = matrix
     data[f'{experiment_name} complete output'] = complete_out
     if os.path.exists(csv_path):
         df = pd.read_csv(csv_path)
@@ -32,18 +24,21 @@ def save_to_csv(csv_path, data, success, matrix, complete_out):
 
 
 if __name__ == '__main__':
-    # SET cuda visible devices only to 0
-    # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-    config = get_config()
+    print(f'Before starting: output file location is {config["output_path"]}')
     dataset = SmallArcDirectGridDataset(config['dataset_location'])
-    prompt_convertor = ZeroShotPromptConvertor(config['prompt_start_location'], delimiter=config['prompt_delimiter'])
-    pipeline = ArcathonPipeline(prompt_convertor, config['model_id'], config['max_return_length'],config['temperature'])
+    print('Running with the following config:')
+    print(yaml.dump(config, default_flow_style=False))
+    prompt_converter = prompt_cls(**config.prompt_config)
+    pipeline = ArcathonPipeline(prompt_converter, **config.arcathon_pipeline)
 
     idx = 1
+    success_amount = 0
     for data, trains, tests in tqdm.tqdm(dataset):
-        start = timeit.default_timer()
-        success, matrix, complete_out = pipeline(trains, tests)
-        end = timeit.default_timer()
-        print(f'Finished working on {data["Task_ID"]}, success: {success}, {idx}/{len(dataset)} took {end - start}s')
-        save_to_csv(config['output_path'], data, success, matrix, complete_out)
+        print('Starting to work on', data['Task_ID'])
+        success, saved_outputs = pipeline(trains, tests)
+        if success:
+            success_amount += 1
+        print(
+            f'Finished working on {data["Task_ID"]}, success: {success}, in index {idx}/{len(dataset)} and so far {success_amount} successes.')
+        save_to_csv(config['output_path'], data, success, saved_outputs)
         idx += 1

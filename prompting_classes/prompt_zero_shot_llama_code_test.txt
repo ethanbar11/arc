@@ -1,0 +1,1 @@
+Now consider the last input examples and deduce its output. Think deeply! Directly generate output board values.

@@ -13,8 +13,14 @@ class SmallArcDirectGridDataset(Dataset):
     def __getitem__(self, idx):
         tasks_data = json.loads(self.data.loc[idx, 'Task_json'])
         train = tasks_data['train']
-        # for example in train:
-        #     input,output = example['input'],example['output']
         test = tasks_data['test']
-
         return self.data.iloc[idx], train, test
+
+    def get_by_task_id(self, task_id):
+        series = self.data[self.data['Task_ID'] == task_id]
+        tasks_data = json.loads(series['Task_json'][0])
+        train = tasks_data['train']
+        test = tasks_data['test']
+        return None, train, test
+
+

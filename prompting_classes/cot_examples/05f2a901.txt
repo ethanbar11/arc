@@ -1,0 +1,50 @@
+By looking at the first training example I'm inferring that:
+1. All the {0} values represent empty cells.
+2. All the {2} values represent cells of the first object.
+3. All the {8} values represent cells of the second object.
+5. The first object (represented by the {8} values) is horizontally above the second object, and somewhat in the same
+    vertical location.
+6. The input and output grids are two-dimensional and stays the same size.
+7. The transformation applied is as follows:
+    - The second object (represented by the {2} values) stays in the same location
+    - The first object (represented by the {8} values) is moved vertically to be on top of the second object,
+    with the same horizontal location.
+
+By looking at the second training example I'm inferring that:
+1. All the {0} values represent empty cells.
+2. All the {2} values represent cells of the first object.
+3. All the {8} values represent cells of the second object.
+5. The first object (represented by the {8} values) is vertically to the left of the second object, and somewhat in the same
+    horizontal location.
+6. The input and output grids are two-dimensional and stays the same size.
+7. The transformation applied is as follows:
+    - The second object (represented by the {2} values) stays in the same location
+    - The first object (represented by the {8} values) is moved vertically to be adjacent to the second object,
+    on the left of it, with the same horizontal location.
+
+By looking at the third training example I'm inferring that:
+1. All the {0} values represent empty cells.
+2. All the {2} values represent cells of the first object.
+3. All the {8} values represent cells of the second object.
+5. The first object (represented by the {8} values) is horizontally to above of the second object, and somewhat in the same
+    vertical location.
+6. The input and output grids are two-dimensional and stays the same size.
+7. The transformation applied is as follows:
+    - The second object (represented by the {2} values) stays in the same location
+    - The first object (represented by the {8} values) is moved horizontally to be adjacent to the second object,
+    below it, with the same vertical location.
+
+Thus, for the test input:
+1. All the {0} values represent empty cells.
+2. All the {2} values represent cells of the first object.
+3. All the {8} values represent cells of the second object.
+5. The first object (represented by the {8} values) is vertically to the right of the second object, and somewhat in the same
+    horizontal location.
+6. The input and output grids are two-dimensional and stays the same size.
+7. The transformation applied is as follows:
+    - The second object (represented by the {2} values) stays in the same location
+    - The first object (represented by the {8} values) is moved vertically to be adjacent to the second object,
+    on the right of it, with the same horizontal location.
+
+And thus the output matrix is:
+{out}
